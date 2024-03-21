@@ -4,6 +4,9 @@ const swaggerUi = require('swagger-ui-express');
 const apiSpec = require('./swagger.json');
 const promClient = require('prom-client');
 
+
+function init() {
+try {
 promClient.collectDefaultMetrics();
 const app = express()
 const port = 3000
@@ -20,3 +23,10 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpec));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+} catch(e) { 
+  console.log(e);
+}
+}
+
+init();
